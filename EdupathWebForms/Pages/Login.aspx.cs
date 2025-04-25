@@ -13,7 +13,7 @@ namespace EdupathWebForms.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if user is already logged in
-            if (Session["UserID"] != null)
+            if (!IsPostBack && Session["user_id"] != null) //Only redirect on initial page load, not postbacks
             {
                 RedirectBasedOnRole();
             }
@@ -24,49 +24,74 @@ namespace EdupathWebForms.Pages
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
-            // In a real application, you would hash the password
-            // This is simplified for demonstration
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                lblMessage.Text = "Please enter both username and password.";
+                return; // Stop further processing
+            }
+
             string connectionString = ConfigurationManager.ConnectionStrings["EdupathConnectionString"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT UserID, Username, RoleID FROM Users WHERE Username = @Username AND Password = @Password ", conn);
+                // IMPORTANT:  Use parameterized queries to prevent SQL injection
+                // Also select the Role column instead of RoleID
+                SqlCommand cmd = new SqlCommand("SELECT user_id, username, role FROM Users WHERE username = @username AND password = @password", conn);
+
                 cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@Password", password); // Use hashing in real app!
+                cmd.Parameters.AddWithValue("@Password", password); // **DANGER: Replace with PASSWORD HASHING!**
 
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                try
                 {
-                    // Authentication successful
-                    Session["UserID"] = reader["UserID"].ToString();
-                    Session["Username"] = reader["Username"].ToString();
-                    Session["RoleID"] = reader["RoleID"].ToString();
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    RedirectBasedOnRole();
+                    if (reader.Read())
+                    {
+                        // Authentication successful
+                        Session["UserID"] = reader["user_id"].ToString();
+                        Session["Username"] = reader["Username"].ToString();
+                        Session["Role"] = reader["Role"].ToString(); // Store the Role (string)
+
+                        RedirectBasedOnRole();
+                    }
+                    else
+                    {
+                        // Authentication failed
+                        lblMessage.Text = "Invalid username or password.";
+                    }
+                    reader.Close();
                 }
-                else
+                catch (SqlException ex)
                 {
-                    // Authentication failed
-                    lblMessage.Text = "Invalid username or password.";
+                    // You should log the exception details (ex.Message) for debugging.
+                    Console.WriteLine("Database Error: " + ex.Message); // Log to a file or event log in production
+                    // Handle database errors gracefully.  Log the error!
+                    lblMessage.Text = "An error occurred while connecting to the database. Please try again later. " + ex.Message;
                 }
-                reader.Close();
+                finally
+                {
+                    if (conn.State == ConnectionState.Open) // Safely close connection.
+                    {
+                        conn.Close();
+                    }
+                }
             }
         }
 
         private void RedirectBasedOnRole()
         {
-            int roleID = Convert.ToInt32(Session["RoleID"]);
-            switch (roleID)
+            // Use the string Role instead of RoleID
+            string role = Session["Role"].ToString();
+            switch (role.ToLower()) // Convert to lowercase for case-insensitive comparison
             {
-                case 1: // Admin
+                case "admin":
                     Response.Redirect("~/Admin/Dashboard.aspx");
                     break;
-                case 2: // Teacher
+                case "teacher":
                     Response.Redirect("~/Teacher/Dashboard.aspx");
                     break;
-                case 3: // Student
-                    Response.Redirect("~/Student/Dashboard.aspx");
+                case "student":
+                    Response.Redirect("Dashboard.aspx");
                     break;
                 default:
                     Response.Redirect("~/Default.aspx");
