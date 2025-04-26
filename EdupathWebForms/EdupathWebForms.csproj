@@ -130,8 +130,8 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Register.aspx" />
-    <Content Include="Pages\Dashboard.aspx" />
-    <Content Include="Pages\Student\Dashboard.aspx" />
+    <Content Include="Pages\StudentDashboard.aspx" />
+    <Content Include="Pages\Student\ClassDetail.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -234,19 +234,19 @@
     <Compile Include="Pages\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Dashboard.aspx.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
+    <Compile Include="Pages\StudentDashboard.aspx.cs">
+      <DependentUpon>StudentDashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Dashboard.aspx.designer.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
+    <Compile Include="Pages\StudentDashboard.aspx.designer.cs">
+      <DependentUpon>StudentDashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Student\Dashboard.aspx.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
+    <Compile Include="Pages\Student\ClassDetail.aspx.cs">
+      <DependentUpon>ClassDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Student\Dashboard.aspx.designer.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
+    <Compile Include="Pages\Student\ClassDetail.aspx.designer.cs">
+      <DependentUpon>ClassDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
