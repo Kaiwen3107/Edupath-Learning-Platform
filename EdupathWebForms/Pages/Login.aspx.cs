@@ -35,7 +35,7 @@ namespace EdupathWebForms.Pages
             {
                 // IMPORTANT:  Use parameterized queries to prevent SQL injection
                 // Also select the Role column instead of RoleID
-                SqlCommand cmd = new SqlCommand("SELECT user_id, username, role FROM Users WHERE username = @username AND password = @password", conn);
+                SqlCommand cmd = new SqlCommand("SELECT user_id, username, role FROM Users WHERE username = @Username AND password = @Password", conn);
 
                 cmd.Parameters.AddWithValue("@Username", username);
                 cmd.Parameters.AddWithValue("@Password", password); // **DANGER: Replace with PASSWORD HASHING!**
@@ -91,7 +91,7 @@ namespace EdupathWebForms.Pages
                     Response.Redirect("~/Teacher/Dashboard.aspx");
                     break;
                 case "student":
-                    Response.Redirect("Dashboard.aspx");
+                    Response.Redirect("StudentDashboard.aspx");
                     break;
                 default:
                     Response.Redirect("~/Default.aspx");
