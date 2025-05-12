@@ -128,11 +128,14 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Pages\Assignments.aspx" />
     <Content Include="Pages\AssignmentSubmission.aspx" />
     <Content Include="Pages\ClassDetail.aspx" />
+    <Content Include="Pages\Grades.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Register.aspx" />
     <Content Include="Pages\StudentDashboard.aspx" />
+    <Content Include="Pages\TakeQuiz.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -161,6 +164,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Pages\Site.master" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -221,6 +225,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Assignments.aspx.cs">
+      <DependentUpon>Assignments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Assignments.aspx.designer.cs">
+      <DependentUpon>Assignments.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AssignmentSubmission.aspx.cs">
       <DependentUpon>AssignmentSubmission.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -234,6 +245,13 @@
     </Compile>
     <Compile Include="Pages\ClassDetail.aspx.designer.cs">
       <DependentUpon>ClassDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Grades.aspx.cs">
+      <DependentUpon>Grades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Grades.aspx.designer.cs">
+      <DependentUpon>Grades.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -249,12 +267,26 @@
     <Compile Include="Pages\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Site.master.cs">
+      <DependentUpon>Site.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Site.master.designer.cs">
+      <DependentUpon>Site.master</DependentUpon>
+    </Compile>
     <Compile Include="Pages\StudentDashboard.aspx.cs">
       <DependentUpon>StudentDashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\StudentDashboard.aspx.designer.cs">
       <DependentUpon>StudentDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TakeQuiz.aspx.cs">
+      <DependentUpon>TakeQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\TakeQuiz.aspx.designer.cs">
+      <DependentUpon>TakeQuiz.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -280,7 +312,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Assignment\" />
+    <Folder Include="Pages\Teachers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
