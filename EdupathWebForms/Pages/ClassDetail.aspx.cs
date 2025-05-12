@@ -26,6 +26,7 @@ namespace EdupathWebForms.Pages
                     LoadClassDetails(classId);
                     LoadClassContent(classId);
                     LoadAssignments(classId);
+                    LoadQuizzes(classId);
                 }
                 else
                 {
@@ -94,6 +95,24 @@ namespace EdupathWebForms.Pages
 
                 rptAssignments.DataSource = dt;
                 rptAssignments.DataBind();
+            }
+        }
+        private void LoadQuizzes(int classId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(@"
+            SELECT QuizID, Title, Description
+            FROM Quiz
+            WHERE ClassID = @ClassID", conn);
+                cmd.Parameters.AddWithValue("@ClassID", classId);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                rptQuizzes.DataSource = dt;
+                rptQuizzes.DataBind();
             }
         }
 

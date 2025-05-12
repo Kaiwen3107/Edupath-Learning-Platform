@@ -222,6 +222,24 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </asp:Panel>
+             <!-- Class Content List -->
+ <asp:Panel ID="pnlQuizzes" runat="server" CssClass="mb-5">
+     <div class="section-header">
+         <i class="fas fa-question section-icon"></i>
+        <h4>Quizzes</h4>
+         </div>
+<asp:Repeater ID="rptQuizzes" runat="server">
+    <ItemTemplate>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><%# Eval("Title") %></h5>
+                <p class="card-text"><%# Eval("Description") %></p>
+                <a href='<%# "TakeQuiz.aspx?quizId=" + Eval("QuizID") %>' class="btn btn-outline-primary">Take Quiz</a>
+            </div>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
+ </asp:Panel>
         </div>
     </form>
 </body>

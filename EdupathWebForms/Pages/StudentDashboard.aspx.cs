@@ -31,17 +31,16 @@ namespace EdupathWebForms.Pages
             {
                 conn.Open();
 
-                // 1. 查找班级是否存在这个邀请码
+                // 查找是否有这个邀请码对应的班级
                 SqlCommand findClass = new SqlCommand("SELECT ClassID FROM Class WHERE EnrollmentCode = @Code", conn);
                 findClass.Parameters.AddWithValue("@Code", enrollCode);
-
                 object result = findClass.ExecuteScalar();
 
                 if (result != null)
                 {
                     int classId = Convert.ToInt32(result);
 
-                    // 2. 检查是否已经加入过
+                    // 检查是否已经加入
                     SqlCommand checkEnroll = new SqlCommand("SELECT COUNT(*) FROM Enrollment WHERE ClassID = @ClassID AND StudentID = @StudentID", conn);
                     checkEnroll.Parameters.AddWithValue("@ClassID", classId);
                     checkEnroll.Parameters.AddWithValue("@StudentID", userId);
@@ -50,23 +49,24 @@ namespace EdupathWebForms.Pages
 
                     if (count == 0)
                     {
-                        // 3. 插入 Enrollment 表
+                        // 加入班级
                         SqlCommand enroll = new SqlCommand("INSERT INTO Enrollment (ClassID, StudentID) VALUES (@ClassID, @StudentID)", conn);
                         enroll.Parameters.AddWithValue("@ClassID", classId);
                         enroll.Parameters.AddWithValue("@StudentID", userId);
                         enroll.ExecuteNonQuery();
 
-                        lblJoinResult.Text = "Successfully joined the class！";
-                        LoadMyClasses(); // 刷新班级列表
+                        lblJoinResult.CssClass = "text-success";
+                        lblJoinResult.Text = "✅ Successfully joined the class!";
+                        LoadMyClasses();
                     }
                     else
                     {
-                        lblJoinResult.Text = "You have joined this class。";
+                        lblJoinResult.Text = "⚠️ You have already joined this class.";
                     }
                 }
                 else
                 {
-                    lblJoinResult.Text = "Invalid invitation code，Pls Try Again 。";
+                    lblJoinResult.Text = "❌ Invalid invitation code. Please try again.";
                 }
             }
         }
@@ -78,10 +78,10 @@ namespace EdupathWebForms.Pages
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(@"
-                SELECT c.ClassID, c.ClassName, c.Description
-                FROM Class c
-                INNER JOIN Enrollment e ON c.ClassID = e.ClassID
-                WHERE e.StudentID = @StudentID", conn);
+                    SELECT c.ClassID, c.ClassName, c.Description
+                    FROM Class c
+                    INNER JOIN Enrollment e ON c.ClassID = e.ClassID
+                    WHERE e.StudentID = @StudentID", conn);
                 cmd.Parameters.AddWithValue("@StudentID", userId);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -93,14 +93,10 @@ namespace EdupathWebForms.Pages
             }
         }
 
-
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Response.Redirect("Login.aspx");
         }
-    
-
-
     }
 }
