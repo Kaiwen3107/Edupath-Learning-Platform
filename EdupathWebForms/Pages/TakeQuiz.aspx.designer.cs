@@ -60,6 +60,33 @@ namespace EdupathWebForms.Pages
         protected global::System.Web.UI.WebControls.Button btnSubmitQuiz;
 
         /// <summary>
+        /// pnlScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlScore;
+
+        /// <summary>
+        /// lblScoreDisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblScoreDisplay;
+
+        /// <summary>
+        /// btnReturnToClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReturnToClass;
+
+        /// <summary>
         /// lblResult control.
         /// </summary>
         /// <remarks>

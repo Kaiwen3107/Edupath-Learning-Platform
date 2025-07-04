@@ -14,7 +14,7 @@
             --shadow: rgba(0, 0, 0, 0.08);
         }
         
-        * {
+        * { j
             margin: 0;
             padding: 0;
             box-sizing: border-box;

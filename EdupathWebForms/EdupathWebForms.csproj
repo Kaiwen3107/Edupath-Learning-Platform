@@ -102,7 +102,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
     <Content Include="App_Data\EdupathDB.mdf" />
     <Content Include="App_Data\EdupathDB_log.ldf">
       <DependentUpon>EdupathDB.mdf</DependentUpon>
@@ -128,14 +127,38 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Pages\Admin\AdminDashboard.aspx" />
+    <Content Include="Pages\Admin\ClassList.aspx" />
+    <Content Include="Pages\Admin\CreateUser.aspx" />
+    <Content Include="Pages\Admin\EditClass.aspx" />
+    <Content Include="Pages\Admin\EditStudent.aspx" />
+    <Content Include="Pages\Admin\EditTeacher.aspx" />
+    <Content Include="Pages\Admin\ManualEnroll.aspx" />
+    <Content Include="Pages\Admin\StudentList.aspx" />
+    <Content Include="Pages\Admin\TeacherList.aspx" />
     <Content Include="Pages\Assignments.aspx" />
     <Content Include="Pages\AssignmentSubmission.aspx" />
     <Content Include="Pages\ClassDetail.aspx" />
+    <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Grades.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Register.aspx" />
     <Content Include="Pages\StudentDashboard.aspx" />
+    <Content Include="Pages\StudentProfile.aspx" />
     <Content Include="Pages\TakeQuiz.aspx" />
+    <Content Include="Pages\Teacher\AddAssignment.aspx" />
+    <Content Include="Pages\Teacher\AddContent.aspx" />
+    <Content Include="Pages\Teacher\AddQuiz.aspx" />
+    <Content Include="Pages\Teacher\AssignmentSubmissionList.aspx" />
+    <Content Include="Pages\Teacher\ClassDetailTeacher.aspx" />
+    <Content Include="Pages\Teacher\EditAssignment.aspx" />
+    <Content Include="Pages\Teacher\EditContent.aspx" />
+    <Content Include="Pages\Teacher\EditQuiz.aspx" />
+    <Content Include="Pages\Teacher\GradeSubmission.aspx" />
+    <Content Include="Pages\Teacher\MyClasses.aspx" />
+    <Content Include="Pages\Teacher\QuizScores.aspx" />
+    <Content Include="Pages\Teacher\TeacherAssignment.aspx" />
+    <Content Include="Pages\Teacher\TeacherDashboard.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -165,6 +188,8 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Pages\Site.master" />
+    <Content Include="Pages\Admin\AdminSite.master" />
+    <Content Include="Pages\Teacher\TeacherSite.master" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -200,13 +225,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -224,6 +242,76 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\AdminDashboard.aspx.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\AdminDashboard.aspx.designer.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\AdminSite.master.cs">
+      <DependentUpon>AdminSite.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\AdminSite.master.designer.cs">
+      <DependentUpon>AdminSite.master</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\ClassList.aspx.cs">
+      <DependentUpon>ClassList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\ClassList.aspx.designer.cs">
+      <DependentUpon>ClassList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\CreateUser.aspx.cs">
+      <DependentUpon>CreateUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\CreateUser.aspx.designer.cs">
+      <DependentUpon>CreateUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\EditClass.aspx.cs">
+      <DependentUpon>EditClass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\EditClass.aspx.designer.cs">
+      <DependentUpon>EditClass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\EditStudent.aspx.cs">
+      <DependentUpon>EditStudent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\EditStudent.aspx.designer.cs">
+      <DependentUpon>EditStudent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\EditTeacher.aspx.cs">
+      <DependentUpon>EditTeacher.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\EditTeacher.aspx.designer.cs">
+      <DependentUpon>EditTeacher.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\ManualEnroll.aspx.cs">
+      <DependentUpon>ManualEnroll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\ManualEnroll.aspx.designer.cs">
+      <DependentUpon>ManualEnroll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\StudentList.aspx.cs">
+      <DependentUpon>StudentList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\StudentList.aspx.designer.cs">
+      <DependentUpon>StudentList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\TeacherList.aspx.cs">
+      <DependentUpon>TeacherList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\TeacherList.aspx.designer.cs">
+      <DependentUpon>TeacherList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Assignments.aspx.cs">
       <DependentUpon>Assignments.aspx</DependentUpon>
@@ -245,6 +333,13 @@
     </Compile>
     <Compile Include="Pages\ClassDetail.aspx.designer.cs">
       <DependentUpon>ClassDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Grades.aspx.cs">
       <DependentUpon>Grades.aspx</DependentUpon>
@@ -281,12 +376,117 @@
     <Compile Include="Pages\StudentDashboard.aspx.designer.cs">
       <DependentUpon>StudentDashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\StudentProfile.aspx.cs">
+      <DependentUpon>StudentProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\StudentProfile.aspx.designer.cs">
+      <DependentUpon>StudentProfile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TakeQuiz.aspx.cs">
       <DependentUpon>TakeQuiz.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\TakeQuiz.aspx.designer.cs">
       <DependentUpon>TakeQuiz.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\AddAssignment.aspx.cs">
+      <DependentUpon>AddAssignment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\AddAssignment.aspx.designer.cs">
+      <DependentUpon>AddAssignment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\AddContent.aspx.cs">
+      <DependentUpon>AddContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\AddContent.aspx.designer.cs">
+      <DependentUpon>AddContent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\AddQuiz.aspx.cs">
+      <DependentUpon>AddQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\AddQuiz.aspx.designer.cs">
+      <DependentUpon>AddQuiz.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\AssignmentSubmissionList.aspx.cs">
+      <DependentUpon>AssignmentSubmissionList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\AssignmentSubmissionList.aspx.designer.cs">
+      <DependentUpon>AssignmentSubmissionList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\ClassDetailTeacher.aspx.cs">
+      <DependentUpon>ClassDetailTeacher.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\ClassDetailTeacher.aspx.designer.cs">
+      <DependentUpon>ClassDetailTeacher.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\EditAssignment.aspx.cs">
+      <DependentUpon>EditAssignment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\EditAssignment.aspx.designer.cs">
+      <DependentUpon>EditAssignment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\EditContent.aspx.cs">
+      <DependentUpon>EditContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\EditContent.aspx.designer.cs">
+      <DependentUpon>EditContent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\EditQuiz.aspx.cs">
+      <DependentUpon>EditQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\EditQuiz.aspx.designer.cs">
+      <DependentUpon>EditQuiz.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\GradeSubmission.aspx.cs">
+      <DependentUpon>GradeSubmission.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\GradeSubmission.aspx.designer.cs">
+      <DependentUpon>GradeSubmission.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\MyClasses.aspx.cs">
+      <DependentUpon>MyClasses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\MyClasses.aspx.designer.cs">
+      <DependentUpon>MyClasses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\QuizScores.aspx.cs">
+      <DependentUpon>QuizScores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\QuizScores.aspx.designer.cs">
+      <DependentUpon>QuizScores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\TeacherAssignment.aspx.cs">
+      <DependentUpon>TeacherAssignment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\TeacherAssignment.aspx.designer.cs">
+      <DependentUpon>TeacherAssignment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\TeacherDashboard.aspx.cs">
+      <DependentUpon>TeacherDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\TeacherDashboard.aspx.designer.cs">
+      <DependentUpon>TeacherDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Teacher\TeacherSite.master.cs">
+      <DependentUpon>TeacherSite.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Teacher\TeacherSite.master.designer.cs">
+      <DependentUpon>TeacherSite.master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -312,9 +512,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Assignment\" />
-    <Folder Include="Pages\Teachers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

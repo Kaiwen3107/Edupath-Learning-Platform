@@ -109,7 +109,7 @@ namespace EdupathWebForms.Pages.Admin
                 }
             }
 
-            // 注意：Redirect 应该在 using 块之外执行
+            
             Response.Redirect("StudentList.aspx");
 
         }

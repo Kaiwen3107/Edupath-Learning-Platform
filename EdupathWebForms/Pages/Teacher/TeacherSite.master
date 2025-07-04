@@ -1,0 +1,59 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TeacherSite.master.cs" Inherits="EdupathWebForms.Pages.Teacher.TeacherSite" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Teacher Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+
+        .logout-btn {
+            margin-top: 2rem;
+            color: #dc3545;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-2 sidebar">
+                    <h4 class="mb-4">👨‍🏫 Teacher</h4>
+                    <a href="TeacherDashboard.aspx" class='<%# GetActive("TeacherDashboard") %>'>📊 Dashboard</a>
+                    <a href="MyClasses.aspx" class='<%# GetActive("MyClasses") %>'>📁 My Classes</a>
+                    <a href="TeacherAssignment.aspx" class='<%# GetActive("Assignment") %>'>📝 Assignment</a>
+                    <a href="TeacherProfile.aspx" class='<%# GetActive("Profile") %>'>👤 Profile</a>
+                    <a href="../Login.aspx" class="logout-btn">🚪 Logout</a>
+                </div>
+
+                <!-- Main content -->
+                <div class="col-md-10 p-4">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

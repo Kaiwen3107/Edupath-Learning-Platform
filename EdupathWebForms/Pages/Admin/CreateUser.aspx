@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Create New User</h2>
 
-    <!-- 用户名 -->
+    <!-- Username -->
     <div class="mb-3">
         <label>Username</label>
         <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" />
@@ -22,7 +22,7 @@
             ErrorMessage="Invalid email format." CssClass="text-danger d-block" Display="Static" />
     </div>
 
-    <!-- 密码 -->
+    <!-- Password -->
     <div class="mb-3">
         <label>Password</label>
         <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" />
@@ -33,12 +33,13 @@
             CssClass="text-danger d-block" Display="Static" />
     </div>
 
-    <!-- 角色 -->
+    <!-- Role -->
     <div class="mb-3">
         <label>Role</label>
         <asp:DropDownList ID="ddlRole" runat="server" CssClass="form-select">
             <asp:ListItem Value="student">Student</asp:ListItem>
             <asp:ListItem Value="teacher">Teacher</asp:ListItem>
+             <asp:ListItem Value="admin">Admin</asp:ListItem>
         </asp:DropDownList>
     </div>
 

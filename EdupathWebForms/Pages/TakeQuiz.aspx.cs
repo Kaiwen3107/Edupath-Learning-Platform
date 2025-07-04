@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
 using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace EdupathWebForms.Pages
 {
@@ -10,20 +12,16 @@ namespace EdupathWebForms.Pages
     {
         string connectionString = ConfigurationManager.ConnectionStrings["EdupathConnectionString"].ConnectionString;
         int quizId;
+        protected int total = 0;
+        protected int score = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserID"] == null || Session["Role"]?.ToString() != "student")
-            {
+            if (Session["UserID"] == null || Session["Role"].ToString() != "student")
                 Response.Redirect("Login.aspx");
-                return;
-            }
 
             if (!int.TryParse(Request.QueryString["quizId"], out quizId))
-            {
                 Response.Redirect("StudentDashboard.aspx");
-                return;
-            }
 
             if (!IsPostBack)
             {
@@ -36,7 +34,7 @@ namespace EdupathWebForms.Pages
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT Title, Description FROM Quiz WHERE QuizID = @QuizID", conn);
+                SqlCommand cmd = new SqlCommand("SELECT Title, Description, ClassID FROM Quiz WHERE QuizID = @QuizID", conn);
                 cmd.Parameters.AddWithValue("@QuizID", quizId);
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -44,8 +42,8 @@ namespace EdupathWebForms.Pages
                 {
                     lblQuizTitle.Text = reader["Title"].ToString();
                     lblQuizDescription.Text = reader["Description"].ToString();
+                    ViewState["ClassID"] = reader["ClassID"].ToString();
                 }
-                reader.Close();
             }
         }
 
@@ -53,15 +51,11 @@ namespace EdupathWebForms.Pages
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand(@"
-                    SELECT QuestionID, QuestionText, OptionA, OptionB, OptionC, OptionD, CorrectOption
-                    FROM Question WHERE QuizID = @QuizID", conn);
+                SqlCommand cmd = new SqlCommand("SELECT QuestionID, QuestionText, OptionA, OptionB, OptionC, OptionD, CorrectOption FROM Question WHERE QuizID = @QuizID", conn);
                 cmd.Parameters.AddWithValue("@QuizID", quizId);
-
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
                 rptQuestions.DataSource = dt;
                 rptQuestions.DataBind();
             }
@@ -72,85 +66,80 @@ namespace EdupathWebForms.Pages
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 DataRowView row = (DataRowView)e.Item.DataItem;
-                var rbl = (RadioButtonList)e.Item.FindControl("rblOptions");
-
-                if (rbl != null)
-                {
-                    rbl.Items.Clear();
-                    rbl.Items.Add(new ListItem(row["OptionA"].ToString(), "A"));
-                    rbl.Items.Add(new ListItem(row["OptionB"].ToString(), "B"));
-                    rbl.Items.Add(new ListItem(row["OptionC"].ToString(), "C"));
-                    rbl.Items.Add(new ListItem(row["OptionD"].ToString(), "D"));
-                }
+                RadioButtonList rbl = (RadioButtonList)e.Item.FindControl("rblOptions");
+                rbl.Items.Add(new ListItem(row["OptionA"].ToString(), "A"));
+                rbl.Items.Add(new ListItem(row["OptionB"].ToString(), "B"));
+                rbl.Items.Add(new ListItem(row["OptionC"].ToString(), "C"));
+                rbl.Items.Add(new ListItem(row["OptionD"].ToString(), "D"));
             }
         }
 
         protected void btnSubmitQuiz_Click(object sender, EventArgs e)
         {
-            int userId = Convert.ToInt32(Session["UserID"]);
-            int correctCount = 0;
-            int totalQuestions = rptQuestions.Items.Count;
+            score = 0;
+            total = 0;
+            bool allAnswered = true;
 
             foreach (RepeaterItem item in rptQuestions.Items)
             {
-                var rbl = (RadioButtonList)item.FindControl("rblOptions");
-                var hfCorrect = (HiddenField)item.FindControl("hfCorrectOption");
+                RadioButtonList rbl = (RadioButtonList)item.FindControl("rblOptions");
+                HiddenField hfCorrect = (HiddenField)item.FindControl("hfCorrectOption");
 
-                if (rbl != null && hfCorrect != null && rbl.SelectedValue != "")
+                if (rbl.SelectedItem == null)
                 {
-                    if (rbl.SelectedValue == hfCorrect.Value)
-                    {
-                        correctCount++;
-                    }
+                    allAnswered = false;
+                    break;
                 }
+
+                if (rbl.SelectedValue == hfCorrect.Value)
+                    score++;
+                total++;
             }
 
+            if (!allAnswered)
+            {
+                lblResult.Text = "❌ Please answer all questions before submitting.";
+                lblResult.CssClass = "text-danger fw-bold";
+                return;
+            }
+
+            int studentId = Convert.ToInt32(Session["UserID"]);
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-
-                // 检查是否已有提交记录
-                SqlCommand check = new SqlCommand(@"
-                    SELECT Score, AttemptHistory FROM QuizSubmission
-                    WHERE QuizID = @QuizID AND StudentID = @StudentID", conn);
+                SqlCommand check = new SqlCommand("SELECT COUNT(*) FROM QuizSubmission WHERE StudentID = @StudentID AND QuizID = @QuizID", conn);
+                check.Parameters.AddWithValue("@StudentID", studentId);
                 check.Parameters.AddWithValue("@QuizID", quizId);
-                check.Parameters.AddWithValue("@StudentID", userId);
 
-                SqlDataReader reader = check.ExecuteReader();
-                bool hasRecord = reader.Read();
-                int previousScore = hasRecord ? Convert.ToInt32(reader["Score"]) : 0;
-                int previousAttempts = hasRecord ? Convert.ToInt32(reader["AttemptHistory"]) : 0;
-                reader.Close();
+                int exists = (int)check.ExecuteScalar();
 
-                if (hasRecord)
+                if (exists == 0)
                 {
-                    int bestScore = Math.Max(previousScore, correctCount);
-                    SqlCommand update = new SqlCommand(@"
-                        UPDATE QuizSubmission
-                        SET Score = @Score, AttemptHistory = @AttemptHistory, SubmittedAt = GETDATE()
-                        WHERE QuizID = @QuizID AND StudentID = @StudentID", conn);
-                    update.Parameters.AddWithValue("@Score", bestScore);
-                    update.Parameters.AddWithValue("@AttemptHistory", previousAttempts + 1);
-                    update.Parameters.AddWithValue("@QuizID", quizId);
-                    update.Parameters.AddWithValue("@StudentID", userId);
-                    update.ExecuteNonQuery();
+                    SqlCommand insert = new SqlCommand("INSERT INTO QuizSubmission (QuizID, StudentID, Score, SubmittedAt) VALUES (@QuizID, @StudentID, @Score, GETDATE())", conn);
+                    insert.Parameters.AddWithValue("@QuizID", quizId);
+                    insert.Parameters.AddWithValue("@StudentID", studentId);
+                    insert.Parameters.AddWithValue("@Score", score);
+                    insert.ExecuteNonQuery();
                 }
                 else
                 {
-                    SqlCommand insert = new SqlCommand(@"
-                        INSERT INTO QuizSubmission (QuizID, StudentID, Score, AttemptHistory)
-                        VALUES (@QuizID, @StudentID, @Score, 1)", conn);
-                    insert.Parameters.AddWithValue("@QuizID", quizId);
-                    insert.Parameters.AddWithValue("@StudentID", userId);
-                    insert.Parameters.AddWithValue("@Score", correctCount);
-                    insert.ExecuteNonQuery();
+                    SqlCommand update = new SqlCommand("UPDATE QuizSubmission SET Score = CASE WHEN Score < @Score THEN @Score ELSE Score END, SubmittedAt = GETDATE() WHERE QuizID = @QuizID AND StudentID = @StudentID", conn);
+                    update.Parameters.AddWithValue("@Score", score);
+                    update.Parameters.AddWithValue("@QuizID", quizId);
+                    update.Parameters.AddWithValue("@StudentID", studentId);
+                    update.ExecuteNonQuery();
                 }
             }
 
-            lblResult.CssClass += " text-success";
-            lblResult.Text = $"✅ You scored {correctCount} out of {totalQuestions}!";
+            lblScoreDisplay.Text = $"{score} / {total}";
+            pnlScore.Visible = true;
+            btnSubmitQuiz.Visible = false;
+        }
 
-            btnSubmitQuiz.Enabled = false;
+        protected void btnReturnToClass_Click(object sender, EventArgs e)
+        {
+            string classId = ViewState["ClassID"].ToString();
+            Response.Redirect("ClassDetail.aspx?id=" + classId);
         }
     }
 }

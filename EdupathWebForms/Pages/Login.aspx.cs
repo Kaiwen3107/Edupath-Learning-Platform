@@ -85,10 +85,10 @@ namespace EdupathWebForms.Pages
             switch (role.ToLower()) // Convert to lowercase for case-insensitive comparison
             {
                 case "admin":
-                    Response.Redirect("~/Admin/Dashboard.aspx");
+                    Response.Redirect("Admin/AdminDashboard.aspx");
                     break;
                 case "teacher":
-                    Response.Redirect("~/Teacher/Dashboard.aspx");
+                    Response.Redirect("Teacher/TeacherDashboard.aspx");
                     break;
                 case "student":
                     Response.Redirect("StudentDashboard.aspx");

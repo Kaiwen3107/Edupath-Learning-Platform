@@ -81,6 +81,21 @@ namespace EdupathWebForms.Pages.Admin
                     cmd2.Parameters.AddWithValue("@ClassID", classId);
                     cmd2.ExecuteNonQuery();
 
+                    // 删除 Assignment
+                    var cmd9 = new SqlCommand("DELETE FROM Content WHERE ClassID = @ClassID", conn, transaction);
+                    cmd9.Parameters.AddWithValue("@ClassID", classId);
+                    cmd9.ExecuteNonQuery();
+
+                    // 删除 Question
+                    var cmd8 = new SqlCommand(@"
+                        DELETE FROM Question 
+                        WHERE QuizID IN (
+                        SELECT QuizID FROM Quiz WHERE ClassID = @ClassID
+                        )", conn, transaction);
+                    cmd8.Parameters.AddWithValue("@ClassID", classId);
+                    cmd8.ExecuteNonQuery();
+
+
                     // 删除 QuizSubmission
                     var cmd3 = new SqlCommand(@"
                         DELETE FROM QuizSubmission 
@@ -105,17 +120,20 @@ namespace EdupathWebForms.Pages.Admin
                     cmd7.Parameters.AddWithValue("@ClassID", classId);
                     cmd7.ExecuteNonQuery();
 
+
                     // 删除 Class
                     var cmd6 = new SqlCommand("DELETE FROM Class WHERE ClassID = @ClassID", conn, transaction);
                     cmd6.Parameters.AddWithValue("@ClassID", classId);
                     cmd6.ExecuteNonQuery();
 
+                    
                     transaction.Commit();
-                    Response.Redirect("AdminDashboard.aspx");
+                    Response.Redirect("ClassList.aspx");
+
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
+
                     lblResult.CssClass = "text-danger";
                     lblResult.Text = "❌ Failed to delete class: " + ex.Message;
                 }

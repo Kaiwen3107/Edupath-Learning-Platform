@@ -15,24 +15,6 @@ namespace EdupathWebForms.Pages
     {
 
         /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
-        /// <summary>
-        /// pnlClassInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlClassInfo;
-
-        /// <summary>
         /// lblClassName control.
         /// </summary>
         /// <remarks>
@@ -60,13 +42,22 @@ namespace EdupathWebForms.Pages
         protected global::System.Web.UI.WebControls.Label lblTeacher;
 
         /// <summary>
-        /// pnlContent control.
+        /// divStatusMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlContent;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divStatusMessage;
+
+        /// <summary>
+        /// statusMessageText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl statusMessageText;
 
         /// <summary>
         /// rptContent control.
@@ -78,15 +69,6 @@ namespace EdupathWebForms.Pages
         protected global::System.Web.UI.WebControls.Repeater rptContent;
 
         /// <summary>
-        /// pnlAssignments control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAssignments;
-
-        /// <summary>
         /// rptAssignments control.
         /// </summary>
         /// <remarks>
@@ -96,15 +78,6 @@ namespace EdupathWebForms.Pages
         protected global::System.Web.UI.WebControls.Repeater rptAssignments;
 
         /// <summary>
-        /// pnlQuizzes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlQuizzes;
-
-        /// <summary>
         /// rptQuizzes control.
         /// </summary>
         /// <remarks>
@@ -112,5 +85,32 @@ namespace EdupathWebForms.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptQuizzes;
+
+        /// <summary>
+        /// txtMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMessage;
+
+        /// <summary>
+        /// btnPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPost;
+
+        /// <summary>
+        /// gvDiscussion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvDiscussion;
     }
 }
